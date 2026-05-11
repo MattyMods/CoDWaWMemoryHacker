@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="CoDWaWMemoryHacker/CoDWaWMemoryHacker.vcxproj" Id="1486a153-76c3-4014-a72f-d0abf355e3ea" />
+</Solution>

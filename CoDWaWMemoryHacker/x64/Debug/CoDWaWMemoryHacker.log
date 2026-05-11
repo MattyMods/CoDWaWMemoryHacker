@@ -1,0 +1,9 @@
+﻿  CoDWaWMemoryHacker.cpp
+C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(34,13): error C2664: 'int strcmp(const char *,const char *)': cannot convert argument 2 from 'WCHAR [260]' to 'const char *'
+      C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(34,35):
+      Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\string.h(100,13):
+      see declaration of 'strcmp'
+      C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(34,13):
+      while trying to match the argument list '(const char *, WCHAR [260])'
+  
