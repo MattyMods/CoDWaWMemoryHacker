@@ -19,6 +19,24 @@
 #define GEWEHR_CLIP 0x018ED69C
 #define KAR98K_CLIP 0x018ED66C
 
+#define GODMODE 0x004F31F4
+#define UNLIMITED_AMMO 0x0041E619
+#define F2_FLAMETHROWER_AMMO 0x005508F5
+#define JUMP 0x0041B493
+
+#define GODMODE_OPCODE_OG "\x89\x96\xC8\x01\x00\x00"
+#define GODMODE_OPCODE_NOP "\x90\x90\x90\x90\x90\x90"
+#define GODMODE_OPCODE_LENGTH 6
+
+#define UNLIMITED_AMMO_OPCODE_OG "\x89\x84\x8F\xFC\x05\x00\x00"
+#define UNLIMITED_AMMO_OPCODE_NOP "\x90\x90\x90\x90\x90\x90\x90"
+#define UNLIMITED_AMMO_OPCODE_LENGTH 7
+
+#define F2_FLAMETHROWER 0x005508F5
+#define F2_FLAMETHROWER_OPCODE_OG "\xF3\x0F\x11\x19"
+#define F2_FLAMETHROWER_OPCODE_NOP "\x90\x90\x90\x90"
+#define F2_FLAMETHROWER_OPCODE_LENGTH 4
+
 void tp2pack(HANDLE process_handle) {
     float cords_X = -52;
     float cords_Y = 540;
@@ -37,6 +55,15 @@ void tp2power(HANDLE process_handle) {
     WriteProcessMemory(process_handle, (LPVOID)PLAYER_X, &cords_X, sizeof(cords_X), NULL);
     WriteProcessMemory(process_handle, (LPVOID)PLAYER_Y, &cords_Y, sizeof(cords_X), NULL);
     WriteProcessMemory(process_handle, (LPVOID)PLAYER_Z, &cords_Z, sizeof(cords_X), NULL);
+}
+
+void getcords(HANDLE process_handle) {
+    float x, y, z;
+
+    ReadProcessMemory(process_handle, (LPVOID)PLAYER_X, &x, sizeof(float), NULL);
+    ReadProcessMemory(process_handle, (LPVOID)PLAYER_Y, &y, sizeof(float), NULL);
+    ReadProcessMemory(process_handle, (LPVOID)PLAYER_Z, &z, sizeof(float), NULL);
+
 }
 
 int main()
@@ -69,54 +96,50 @@ int main()
         exit(1);
     }
 
-    bool modhealth = false;
+    bool godmode = false;
     bool modpoints = false;
-    bool UnlimitedAmmoStartingRoomWeapons = false;
+    bool UnlimitedAmmo = false;
 
     bool update_screen = true;
 
-    float player_X = 0;
-    float player_Y = 0;
-    float player_Z = 0;
 
     while (true) {
         if (update_screen) {
             system("cls");
             std::cout << "Call of Duty World At War Memory Hacker V1" << std::endl;
             std::cout << "==========================================\n";
-            std::cout << " [F1] - (" << (modhealth ? "on " : "off") << ") Unlimited Health\n";
+            std::cout << " [F1] - (" << (godmode ? "on " : "off") << ") God Mode\n";
             std::cout << " [F2] - (" << (modpoints ? "on " : "off") << ") Set Points to 100K\n";
-            std::cout << " [F3] - (" << (UnlimitedAmmoStartingRoomWeapons ? "on " : "off") << ") Unlimited Ammo Starting Room Weapons and Granades\n";
+            std::cout << " [F3] - (" << (UnlimitedAmmo ? "on " : "off") << ") Unlimited Ammo\n";
             std::cout << " [F4] - TP To Packapunch\n";
             std::cout << " [F5] - TP To Power\n";
-            std::cout << "==========================================\n";
-            std::cout << "X: [" << (player_X) << "] ";
-            std::cout << "Y: [" << (player_Y) << "] ";
-            std::cout << "Z: [" << (player_Z) << "]\n";
-            std::cout << "==========================================\n";
+            //std::cout << " [F6] - Get Cords\n";
+            //std::cout << "==========================================\n";
+            //std::cout << "X: [" << (x) << "] ";
+            //std::cout << "Y: [" << (y) << "] ";
+            //std::cout << "Z: [" << (z) << "]\n";
+            //std::cout << "==========================================\n";
+            
             update_screen = false;
         }
 
         SHORT keypress;
 
-        // modhealth
         keypress = GetAsyncKeyState(VK_F1);
         if (keypress) {
-            modhealth = !modhealth;
+            godmode = !godmode;
             update_screen = true;
         }
 
-        // modpoints
         keypress = GetAsyncKeyState(VK_F2);
         if (keypress) {
             modpoints = !modpoints;
             update_screen = true;
         }
 
-        // modammow_M1911_AMMO
         keypress = GetAsyncKeyState(VK_F3);
         if (keypress) {
-            UnlimitedAmmoStartingRoomWeapons = !UnlimitedAmmoStartingRoomWeapons;
+            UnlimitedAmmo = !UnlimitedAmmo;
             update_screen = true;
         }
 
@@ -131,28 +154,26 @@ int main()
             tp2power(process_handle);
         }
 
-
-        if (modhealth) {
-            int value = 100000;
-            WriteProcessMemory(process_handle, (LPVOID)HEALTH, &value, sizeof(value), NULL);
-        }
-
         if (modpoints) {
             int value = 100000;
             WriteProcessMemory(process_handle, (LPVOID)POINTS, &value, sizeof(value), NULL);
         }
 
-        if (UnlimitedAmmoStartingRoomWeapons) {
-            int value = 100000;
-            WriteProcessMemory(process_handle, (LPVOID)COLT_M1911_AMMO, &value, sizeof(value), NULL);
-            WriteProcessMemory(process_handle, (LPVOID)COLT_M1911_CLIP, &value, sizeof(value), NULL);
-            WriteProcessMemory(process_handle, (LPVOID)GRANADES, &value, sizeof(value), NULL);
-            WriteProcessMemory(process_handle, (LPVOID)GEWEHR_CLIP, &value, sizeof(value), NULL);
-            WriteProcessMemory(process_handle, (LPVOID)KAR98K_CLIP, &value, sizeof(value), NULL);
+        if (UnlimitedAmmo) {
+            WriteProcessMemory(process_handle, (LPVOID)UNLIMITED_AMMO, &UNLIMITED_AMMO_OPCODE_NOP, UNLIMITED_AMMO_OPCODE_LENGTH, NULL);
+            WriteProcessMemory(process_handle, (LPVOID)F2_FLAMETHROWER, &F2_FLAMETHROWER_OPCODE_NOP, F2_FLAMETHROWER_OPCODE_LENGTH, NULL);
+        }
+        else {
+            WriteProcessMemory(process_handle, (LPVOID)UNLIMITED_AMMO, &UNLIMITED_AMMO_OPCODE_OG, UNLIMITED_AMMO_OPCODE_LENGTH, NULL);
+            WriteProcessMemory(process_handle, (LPVOID)F2_FLAMETHROWER, &F2_FLAMETHROWER_OPCODE_OG, F2_FLAMETHROWER_OPCODE_LENGTH, NULL);
         }
 
-        float x, y, z;
-        player_X = ReadProcessMemory(process_handle, (LPVOID)PLAYER_X, &x, sizeof(float), NULL);
+        if (godmode) {
+            WriteProcessMemory(process_handle, (LPVOID)GODMODE, &GODMODE_OPCODE_NOP, GODMODE_OPCODE_LENGTH, NULL);
+        }
+        else {
+            WriteProcessMemory(process_handle, (LPVOID)GODMODE, &GODMODE_OPCODE_OG, GODMODE_OPCODE_LENGTH, NULL);
+        }
 
 
         Sleep(POLL_RATE);

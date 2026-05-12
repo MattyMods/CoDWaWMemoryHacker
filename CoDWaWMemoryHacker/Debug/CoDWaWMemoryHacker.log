@@ -1,5 +1,2 @@
 ﻿  CoDWaWMemoryHacker.cpp
-C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(155,37): warning C4244: '=': conversion from 'BOOL' to 'float', possible loss of data
-C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(154,21): warning C4101: 'z': unreferenced local variable
-C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(154,18): warning C4101: 'y': unreferenced local variable
   CoDWaWMemoryHacker.vcxproj -> C:\Users\Matty\Desktop\gamehacking-projects\CoDWaWMemoryHacker\Debug\CoDWaWMemoryHacker.exe

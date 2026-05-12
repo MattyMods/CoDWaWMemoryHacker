@@ -1,0 +1,9 @@
+﻿  CoDWaWMemoryHacker.cpp
+C:\Users\Matty\Documents\GitHub\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(155,37): warning C4244: '=': conversion from 'BOOL' to 'float', possible loss of data
+C:\Users\Matty\Documents\GitHub\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(154,21): warning C4101: 'z': unreferenced local variable
+C:\Users\Matty\Documents\GitHub\CoDWaWMemoryHacker\CoDWaWMemoryHacker\CoDWaWMemoryHacker.cpp(154,18): warning C4101: 'y': unreferenced local variable
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 14 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CoDWaWMemoryHacker.vcxproj -> C:\Users\Matty\Documents\GitHub\CoDWaWMemoryHacker\x64\Release\CoDWaWMemoryHacker.exe
